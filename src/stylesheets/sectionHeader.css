@@ -1,0 +1,15 @@
+.imageText {
+  text-shadow: 5px 2px 25px rgba(0, 0, 0, 1);
+}
+
+.imageBlur {
+  /* filter: blur(0.8px);
+  -webkit-filter: blur(0.8px); */
+}
+
+.lastUpd {
+  position: absolute;
+  bottom: 3px;
+  left: 8px;
+  text-shadow: 5px 2px 25px rgba(0, 0, 0, 1);
+}
