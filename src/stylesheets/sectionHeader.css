@@ -13,3 +13,8 @@
   left: 8px;
   text-shadow: 5px 2px 25px rgba(0, 0, 0, 1);
 }
+
+.hover-shadow:hover {
+  transition: box-shadow 0.3s;
+  box-shadow: 0 0 30px rgba(33, 33, 33, 0.5);
+}

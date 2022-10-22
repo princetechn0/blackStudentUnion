@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import "../stylesheets/haircuts.css";
 
-class Haircuts extends Component {
+class Submission extends Component {
   render() {
     return (
       <main className="container">
@@ -11,4 +10,4 @@ class Haircuts extends Component {
   }
 }
 
-export default Haircuts;
+export default Submission;

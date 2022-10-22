@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Navbar2 from "./components/navbar";
 import Sections from "./components/sections";
 
 class App extends Component {
-  componentDidMount() {
-    document.body.style.backgroundColor = "#f2e1bf";
-  }
   state = {
     cards: [
       {
@@ -52,22 +48,28 @@ class App extends Component {
         header: "Local food",
         imageURL: "/african-food-recipes.png",
         lastUpdated: "2 minutes ago",
+        route: "/restaurants",
       },
       {
         id: 1,
         header: "Barber Shops",
         imageURL: "/barber-shop.jpg",
         lastUpdated: "2 minutes ago",
+        route: "/haircuts",
+      },
+      {
+        id: 2,
+        header: "Groups",
+        imageURL: "/hangout.jpg",
+        lastUpdated: "2 minutes ago",
+        route: "/events",
       },
     ],
   };
   render() {
     return (
-      <main>
-        <Navbar2></Navbar2>
-        <main className="container">
-          <Sections sectionData={this.state.sections}> </Sections>
-        </main>{" "}
+      <main className="container">
+        <Sections sectionData={this.state.sections}> </Sections>
       </main>
     );
   }

@@ -3,14 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
-import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Haircuts from "./pages/haircuts";
+import Restaurants from "./pages/restaurants";
+import reportWebVitals from "./reportWebVitals";
+import About from "./pages/about";
+import Navbar2 from "./components/navbar";
+import Submission from "./pages/submission";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Haircuts />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Navbar2 />
+    <Routes>
+      <Route exact path="/" element={<App />} />
+      <Route path="/haircut" element={<Haircuts />} />
+      <Route path="/restaurants" element={<Restaurants />} />
+      <Route path="/submissions" element={<Submission />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
