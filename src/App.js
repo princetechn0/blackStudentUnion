@@ -62,7 +62,7 @@ class App extends Component {
         header: "Groups",
         imageURL: "/hangout.jpg",
         lastUpdated: "2 minutes ago",
-        route: "/events",
+        route: "/groups",
       },
     ],
   };

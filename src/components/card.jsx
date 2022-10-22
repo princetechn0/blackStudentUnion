@@ -9,6 +9,7 @@ function BasicCard(props) {
         <Card.Title>{props.childCardInfo.name}</Card.Title>
         <Card.Text>{props.childCardInfo.description}</Card.Text>
         <Button variant="primary">Visit</Button>
+        {props.cardType === "restaurant" && <h2>You have a restautnat</h2>}
       </Card.Body>
     </Card>
   );

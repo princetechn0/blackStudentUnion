@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals";
 import About from "./pages/about";
 import Navbar2 from "./components/navbar";
 import Submission from "./pages/submission";
+import Groups from "./pages/groups";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,8 +18,9 @@ root.render(
     <Navbar2 />
     <Routes>
       <Route exact path="/" element={<App />} />
-      <Route path="/haircut" element={<Haircuts />} />
+      <Route path="/haircuts" element={<Haircuts />} />
       <Route path="/restaurants" element={<Restaurants />} />
+      <Route path="/groups" element={<Groups />} />
       <Route path="/submissions" element={<Submission />} />
       <Route path="/about" element={<About />} />
     </Routes>

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import "../stylesheets/haircuts.css";
+import "../stylesheets/restaurants.css";
 
-class Haircuts extends Component {
+class Groups extends Component {
   render() {
     return (
       <main className="container">
-        <h1>hair</h1>
+        <h1>groups</h1>
       </main>
     );
   }
 }
 
-export default Haircuts;
+export default Groups;
