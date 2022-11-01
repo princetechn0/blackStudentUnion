@@ -3,25 +3,21 @@ import BasicCard from "./card";
 
 class Cards extends Component {
   render() {
-    console.log("props", this.props);
-    const { cards, type } = this.props;
+    const { cards, type, onDelete } = this.props;
     return (
-      <React.Fragment>
-        <div className="container">
-          <div className="row text-center">
-            {cards &&
-              cards.map((card) => (
-                <React.Fragment>
-                  <BasicCard
-                    key={card.id}
-                    childCardInfo={card}
-                    cardType={type}
-                  ></BasicCard>
-                </React.Fragment>
-              ))}
-          </div>
+      <div>
+        <div className="row text-center justify-content-center">
+          {cards &&
+            cards.map((card) => (
+              <BasicCard
+                key={card.id}
+                childCardInfo={card}
+                cardType={type}
+                onDelete={onDelete}
+              ></BasicCard>
+            ))}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

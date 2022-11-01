@@ -13,7 +13,6 @@ class Navbar2 extends Component {
         <Container>
           <Navbar.Brand href="/">UCI - Black Student Resources</Navbar.Brand>
           <div className="float-right">
-            <Navbar.Brand href="/submissions">Recommend</Navbar.Brand>
             <Navbar.Brand href="/about">About</Navbar.Brand>
           </div>
         </Container>

@@ -4,44 +4,6 @@ import Sections from "./components/sections";
 
 class App extends Component {
   state = {
-    cards: [
-      {
-        id: 0,
-        name: "Soul Food",
-        age: 55,
-        description: "not doing wll",
-        imageURL: "https://picsum.photos/1080",
-      },
-      {
-        id: 1,
-        name: "Soul Food",
-        age: 55,
-        description: "not doing wll",
-        imageURL: "https://picsum.photos/1081",
-      },
-      {
-        id: 2,
-        name: "Soul Food",
-        age: 55,
-        description: "not doing wll",
-        imageURL: "https://picsum.photos/1090",
-      },
-      {
-        id: 3,
-        name: "Soul Food",
-        age: 55,
-        description: "not doing wll",
-        imageURL: "https://picsum.photos/1100",
-      },
-      {
-        id: 4,
-        name: "Soul Food",
-        age: 55,
-        description: "not doing wll",
-        imageURL: "https://picsum.photos/1101",
-      },
-    ],
-    undoStack: [],
     sections: [
       {
         id: 0,
@@ -52,14 +14,21 @@ class App extends Component {
       },
       {
         id: 1,
-        header: "Barber Shops",
+        header: "Barber Shops / Salons",
         imageURL: "/barber-shop.jpg",
         lastUpdated: "2 minutes ago",
         route: "/haircuts",
       },
       {
         id: 2,
-        header: "Groups",
+        header: "Events",
+        imageURL: "/hangout.jpg",
+        lastUpdated: "2 minutes ago",
+        route: "/groups",
+      },
+      {
+        id: 3,
+        header: "On Campus Resources",
         imageURL: "/hangout.jpg",
         lastUpdated: "2 minutes ago",
         route: "/groups",
