@@ -14,7 +14,7 @@ class App extends Component {
       },
       {
         id: 1,
-        header: "Barber Shops / Salons",
+        header: "Beauty",
         imageURL: "/barber-shop.jpg",
         lastUpdated: "2 minutes ago",
         route: "/haircuts",

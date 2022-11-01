@@ -1,7 +1,6 @@
 import { Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import RestaurantForm from "./restaurantForm";
 
 function ModalPopup(props) {
   const [show, setShow] = useState(false);
@@ -15,7 +14,7 @@ function ModalPopup(props) {
   return (
     <>
       <Button
-        className="d-flex mx-auto"
+        className="d-flex mx-auto mt-3"
         variant="primary"
         size="lg"
         onClick={handleShow}
@@ -27,6 +26,7 @@ function ModalPopup(props) {
         <Modal.Body>
           {React.cloneElement(props.children, {
             onSubmit: { onSubmit },
+            onClick: { handleClose },
           })}
         </Modal.Body>
       </Modal>

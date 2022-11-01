@@ -14,12 +14,10 @@ import {
   ref,
   uploadBytes,
   getDownloadURL,
-  getStorage,
   deleteObject,
 } from "firebase/storage";
 import { v4 } from "uuid";
 import RestaurantForm from "../components/restaurantForm";
-import { Button } from "react-bootstrap";
 import ModalPopup from "../components/modal";
 
 const Restaurants = () => {

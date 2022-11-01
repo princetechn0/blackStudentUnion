@@ -6,6 +6,10 @@ function RestaurantForm(props) {
   const { register, handleSubmit } = useForm();
   const formRef = useRef(null);
 
+  const onClose = () => {
+    props.onClick.handleClose();
+  };
+
   const onSubmit = (e) => {
     props.onSubmit.onSubmit(e);
     formRef.current.reset();
@@ -58,6 +62,9 @@ function RestaurantForm(props) {
         </Form.Group>
         <div className="d-flex justify-content-end ">
           {" "}
+          <Button className="mx-3" onClick={onClose} variant="danger">
+            Close
+          </Button>
           <Button type="submit">Submit</Button>
         </div>
       </Form>

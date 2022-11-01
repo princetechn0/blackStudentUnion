@@ -11,7 +11,7 @@ class Navbar2 extends Component {
     return (
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/">UCI - Black Student Resources</Navbar.Brand>
+          <Navbar.Brand href="/">Home</Navbar.Brand>
           <div className="float-right">
             <Navbar.Brand href="/about">About</Navbar.Brand>
           </div>
