@@ -9,11 +9,8 @@ class Sections extends Component {
       <React.Fragment>
         <div className="row">
           {sectionData.map((section) => (
-            <div className="col-lg-6">
-              <SectionHeader
-                key={section.id}
-                childSection={section}
-              ></SectionHeader>
+            <div key={section.id} className="col-lg-6">
+              <SectionHeader childSection={section}></SectionHeader>
             </div>
           ))}
         </div>

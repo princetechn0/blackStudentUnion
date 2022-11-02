@@ -15,11 +15,11 @@ function ModalPopup(props) {
     <>
       <Button
         className="d-flex mx-auto mt-3"
-        variant="primary"
+        variant="outline-dark"
         size="lg"
         onClick={handleShow}
       >
-        Recommend!
+        Suggest!
       </Button>
 
       <Modal show={show} onHide={handleClose}>

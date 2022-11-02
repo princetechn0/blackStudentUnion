@@ -11,9 +11,9 @@ function HairForm(props) {
   };
 
   const onSubmit = (e) => {
-    console.log(e);
-    // props.onSubmit.onSubmit(e);
-    // formRef.current.reset();
+    props.onSubmit.onSubmit(e);
+    formRef.current.reset();
+    onClose();
   };
 
   return (
@@ -86,7 +86,7 @@ function HairForm(props) {
             {...register("image")}
           />
         </Form.Group>
-        <div className="d-flex justify-content-end ">
+        <div className="d-flex justify-content-end pt-3 ">
           {" "}
           <Button className="mx-3" onClick={onClose} variant="danger">
             Close

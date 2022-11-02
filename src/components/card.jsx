@@ -7,6 +7,10 @@ function BasicCard(props) {
     props.onDelete(id);
   }
 
+  function displayAddress(a) {
+    window.open(`https://maps.google.com?q=${a}`);
+  }
+
   return (
     <Card className="hover-shadow col-md-3 col-10 m-3 pt-2">
       {props.childCardInfo.image && (
@@ -20,7 +24,20 @@ function BasicCard(props) {
         <h4>{props.childCardInfo.name}</h4>
         <h5>{props.childCardInfo.type}</h5>
         <Card.Text>{props.childCardInfo.description}</Card.Text>
-        <Card.Text>{props.childCardInfo.address}</Card.Text>
+        {/* If Address exists */}
+        {props.childCardInfo.address && (
+          <div>
+            <Card.Text>{props.childCardInfo.address}</Card.Text>
+            <Button
+              variant="dark"
+              onClick={() => displayAddress(props.childCardInfo.address)}
+            >
+              Directions
+            </Button>
+          </div>
+        )}
+
+        {props.cardType === "restaurant"}
         {/* <Button
           className="mx-4"
           variant="danger"
@@ -28,22 +45,6 @@ function BasicCard(props) {
         >
           Delete
         </Button> */}
-        <div className="">
-          <Button
-            className="mx-4"
-            variant="primary"
-            onClick={() => console.log(props.childCardInfo.address)}
-          >
-            Visit
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => console.log(props.childCardInfo.address)}
-          >
-            Directions
-          </Button>
-        </div>
-        {props.cardType === "restaurant"}
       </Card.Body>
     </Card>
   );
