@@ -2,9 +2,18 @@ import { Badge } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../stylesheets/card.css";
+import { IconContext } from "react-icons";
+import { FaDirections } from "react-icons/fa";
+import { v4 } from "uuid";
 
 function BasicCard(props) {
-  const { name, description, category, type, address } = props.childCardInfo;
+  const {
+    name,
+    description,
+    category = "",
+    type,
+    address,
+  } = props.childCardInfo;
   const { cardType } = props.cardType;
 
   function onDelete(id) {
@@ -25,18 +34,21 @@ function BasicCard(props) {
         />
       )}
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Subtitle>{description}</Card.Subtitle>
+        <h3>{name}</h3>
+        <Card.Text>{description}</Card.Text>
         {/* If Address exists */}
         {address && (
-          <div className="address pt-2">
-            <Card.Text>{address}</Card.Text>
+          <div className="pt-2">
+            <Card.Text>{address} </Card.Text>
             <Button
+              className=""
+              variant="light"
               size="sm"
-              variant="dark"
               onClick={() => displayAddress(address)}
             >
-              Directions
+              <IconContext.Provider value={{ size: "1.5em" }}>
+                <FaDirections />
+              </IconContext.Provider>
             </Button>
           </div>
         )}
@@ -52,7 +64,7 @@ function BasicCard(props) {
 
       {/* type and category pills */}
       <Card.Footer>
-        <div className="badges d-inline float-left">
+        <div className="badges d-inline">
           {type &&
             Array.isArray(type) &&
             type.map((item) => (

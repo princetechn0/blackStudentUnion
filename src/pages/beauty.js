@@ -18,27 +18,27 @@ import {
 } from "firebase/storage";
 import { v4 } from "uuid";
 import ModalPopup from "../components/modal";
-import HairForm from "../components/hairForm";
+import BeautyForm from "../components/beautyForm";
 
-const Haircuts = () => {
+const Beauty = () => {
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const haircutCollectionRef = collection(db, "haircuts");
+  const beautyCollectionRef = collection(db, "beauty");
 
   useEffect(() => {
-    fetchHaircuts();
+    fetchBeautyListings();
   }, []);
 
-  const fetchHaircuts = async () => {
-    const data = await getDocs(haircutCollectionRef);
+  const fetchBeautyListings = async () => {
+    const data = await getDocs(beautyCollectionRef);
     setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
   };
 
-  const postHaircut = async (inputData) => {
+  const postBeautyListing = async (inputData) => {
     const { name, category, type, description, address, image } = inputData;
     if (Object.keys(image).length === 0) {
-      const newHaircut = {
+      const newBeautyListing = {
         name,
         category,
         type,
@@ -46,18 +46,18 @@ const Haircuts = () => {
         address,
         image: "",
       };
-      addDoc(haircutCollectionRef, newHaircut);
-      fetchHaircuts();
+      addDoc(beautyCollectionRef, newBeautyListing);
+      fetchBeautyListings();
       return;
     }
-    var imgSerial = `haircuts/${image[0].name}` + v4();
+    var imgSerial = `beauty/${image[0].name}` + v4();
     let imgRef = ref(storage, imgSerial);
     setLoading(true);
     await uploadBytes(imgRef, image[0])
       .then(() => {
         getDownloadURL(imgRef)
           .then((url) => {
-            const newHaircut = {
+            const newBeautyListing = {
               name,
               category,
               type,
@@ -65,17 +65,17 @@ const Haircuts = () => {
               address,
               image: url,
             };
-            addDoc(haircutCollectionRef, newHaircut);
-            fetchHaircuts();
+            addDoc(beautyCollectionRef, newBeautyListing);
+            fetchBeautyListings();
           })
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   };
 
-  const deleteHaircut = async (childCardInfo) => {
+  const deleteBeautyListing = async (childCardInfo) => {
     const { id, image } = childCardInfo;
-    const docRef = doc(db, "haircuts", id);
+    const docRef = doc(db, "beauty", id);
     // Deletes Entry in Firestore DB
     await deleteDoc(docRef);
 
@@ -87,22 +87,22 @@ const Haircuts = () => {
         .catch((error) => {});
     }
 
-    fetchHaircuts();
+    fetchBeautyListings();
   };
 
   return (
     <main>
       <div className="pb-4">
         <h1 className="headerBarber">Beauty</h1>
-        <ModalPopup onSubmit={postHaircut}>
-          <HairForm />
+        <ModalPopup onSubmit={postBeautyListing}>
+          <BeautyForm />
         </ModalPopup>
       </div>
 
       {!isLoading && (
         <Cards
           cards={nodes}
-          onDelete={deleteHaircut}
+          onDelete={deleteBeautyListing}
           type={"restaurant"}
         ></Cards>
       )}
@@ -110,4 +110,4 @@ const Haircuts = () => {
   );
 };
 
-export default Haircuts;
+export default Beauty;

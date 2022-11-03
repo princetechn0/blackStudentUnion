@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Haircuts from "./pages/beauty";
+import Beauty from "./pages/beauty";
 import Restaurants from "./pages/restaurants";
 import reportWebVitals from "./reportWebVitals";
 import About from "./pages/about";
@@ -18,7 +18,7 @@ root.render(
     <Navbar2 />
     <Routes>
       <Route exact path="/" element={<App />} />
-      <Route path="/haircuts" element={<Haircuts />} />
+      <Route path="/beauty" element={<Beauty />} />
       <Route path="/restaurants" element={<Restaurants />} />
       <Route path="/groups" element={<Groups />} />
       <Route path="/submissions" element={<Submission />} />

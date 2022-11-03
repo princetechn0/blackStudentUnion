@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 
-function HairForm(props) {
+function BeautyForm(props) {
   const { register, handleSubmit } = useForm();
   const formRef = useRef(null);
 
@@ -65,7 +65,7 @@ function HairForm(props) {
           <Form.Label>Description</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Best soul food ever!"
+            placeholder="Great black owned nail salon!"
             {...register("description")}
           />
         </Form.Group>
@@ -98,4 +98,4 @@ function HairForm(props) {
   );
 }
 
-export default HairForm;
+export default BeautyForm;
