@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../stylesheets/haircuts.css";
+import "../stylesheets/beauty.css";
 import Cards from "../components/cards";
 import { db } from "../firebase-config";
 import {
@@ -36,10 +36,11 @@ const Haircuts = () => {
   };
 
   const postHaircut = async (inputData) => {
-    const { name, type, description, address, image } = inputData;
+    const { name, category, type, description, address, image } = inputData;
     if (Object.keys(image).length === 0) {
       const newHaircut = {
         name,
+        category,
         type,
         description,
         address,
@@ -58,6 +59,7 @@ const Haircuts = () => {
           .then((url) => {
             const newHaircut = {
               name,
+              category,
               type,
               description,
               address,

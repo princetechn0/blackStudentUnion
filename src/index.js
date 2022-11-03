@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Haircuts from "./pages/haircuts";
+import Haircuts from "./pages/beauty";
 import Restaurants from "./pages/restaurants";
 import reportWebVitals from "./reportWebVitals";
 import About from "./pages/about";
