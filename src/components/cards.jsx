@@ -12,6 +12,7 @@ class Cards extends Component {
       700: 1,
       500: 1,
     };
+
     return (
       <div className="container">
         <Masonry
@@ -29,8 +30,8 @@ class Cards extends Component {
               ></BasicCard>
             ))}
         </Masonry>
-        {/* 
-        <div className="row text-center justify-content-center">
+
+        {/* <div className="row text-center justify-content-center">
           {cards &&
             cards.map((card) => (
               <BasicCard

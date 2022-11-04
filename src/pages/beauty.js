@@ -58,7 +58,6 @@ const Beauty = () => {
     }
     var imgSerial = `beauty/${image[0].name}` + v4();
     let imgRef = ref(storage, imgSerial);
-    setLoading(true);
     await uploadBytes(imgRef, image[0])
       .then(() => {
         getDownloadURL(imgRef)

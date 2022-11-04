@@ -25,76 +25,78 @@ function BasicCard(props) {
 
   // col-md-3 col-10 m-3 pt-2
   return (
-    <Card className="hover-shadow">
-      {props.childCardInfo.image && (
-        <Card.Img
-          className="card-img p-2"
-          variant="top"
-          src={props.childCardInfo.image}
-        />
-      )}
-      <Card.Body>
-        <h3>{name}</h3>
-        <Card.Text>{description}</Card.Text>
-        {/* If Address exists */}
-        {address && (
-          <div className="pt-2">
-            <Card.Text>{address} </Card.Text>
-            <Button
-              className=""
-              variant="light"
-              size="sm"
-              onClick={() => displayAddress(address)}
-            >
-              <IconContext.Provider value={{ size: "1.5em" }}>
-                <FaDirections />
-              </IconContext.Provider>
-            </Button>
-          </div>
+    <div className="BasicCard text-center">
+      <Card className="hover-shadow">
+        {props.childCardInfo.image && (
+          <Card.Img
+            className="card-img p-2"
+            variant="top"
+            src={props.childCardInfo.image}
+          />
         )}
+        <Card.Body>
+          <h3>{name}</h3>
+          <Card.Text>{description}</Card.Text>
+          {/* If Address exists */}
+          {address && (
+            <div className="pt-2">
+              <Card.Text>{address} </Card.Text>
+              <Button
+                className=""
+                variant="light"
+                size="sm"
+                onClick={() => displayAddress(address)}
+              >
+                <IconContext.Provider value={{ size: "1.5em" }}>
+                  <FaDirections />
+                </IconContext.Provider>
+              </Button>
+            </div>
+          )}
 
-        {/* <Button
+          {/* <Button
           className="mx-4"
           variant="danger"
           onClick={() => onDelete(props.childCardInfo)}
         >
           Delete
         </Button> */}
-      </Card.Body>
+        </Card.Body>
 
-      {/* type and category pills */}
-      <Card.Footer>
-        <div className="badges d-inline">
-          {type &&
-            Array.isArray(type) &&
-            type.map((item) => (
+        {/* type and category pills */}
+        <Card.Footer>
+          <div className="badges d-inline">
+            {type &&
+              Array.isArray(type) &&
+              type.map((item) => (
+                <Badge pill bg="success" className="mx-1">
+                  {item}
+                </Badge>
+              ))}
+
+            {!Array.isArray(type) && type && (
               <Badge pill bg="success" className="mx-1">
-                {item}
+                {type}
               </Badge>
-            ))}
+            )}
 
-          {!Array.isArray(type) && type && (
-            <Badge pill bg="success" className="mx-1">
-              {type}
-            </Badge>
-          )}
+            {category &&
+              Array.isArray(category) &&
+              category.map((item) => (
+                <Badge pill bg="primary" className="mx-1">
+                  {item}
+                </Badge>
+              ))}
 
-          {category &&
-            Array.isArray(category) &&
-            category.map((item) => (
-              <Badge pill bg="primary" className="mx-1">
-                {item}
+            {!Array.isArray(category) && category && (
+              <Badge pill bg="success" className="mx-1">
+                {category}
               </Badge>
-            ))}
-
-          {!Array.isArray(category) && category && (
-            <Badge pill bg="success" className="mx-1">
-              {category}
-            </Badge>
-          )}
-        </div>
-      </Card.Footer>
-    </Card>
+            )}
+          </div>
+        </Card.Footer>
+      </Card>
+    </div>
   );
 }
 
