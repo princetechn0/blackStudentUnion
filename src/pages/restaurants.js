@@ -8,6 +8,8 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
+  query,
+  orderBy,
 } from "@firebase/firestore";
 import { storage } from "../firebase-config";
 import {
@@ -30,7 +32,9 @@ const Restaurants = () => {
   }, []);
 
   const fetchRestaurants = async () => {
-    const data = await getDocs(restaurantCollectionRef);
+    const data = await getDocs(
+      query(restaurantCollectionRef, orderBy("dateCreated", "desc"))
+    );
     setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
   };
@@ -44,6 +48,7 @@ const Restaurants = () => {
         description,
         address,
         image: "",
+        dateCreated: new Date(),
       };
       addDoc(restaurantCollectionRef, newRestaurant);
       fetchRestaurants();
@@ -62,6 +67,7 @@ const Restaurants = () => {
               description,
               address,
               image: url,
+              dateCreated: new Date(),
             };
             addDoc(restaurantCollectionRef, newRestaurant);
             fetchRestaurants();

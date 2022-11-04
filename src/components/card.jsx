@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import "../stylesheets/card.css";
 import { IconContext } from "react-icons";
 import { FaDirections } from "react-icons/fa";
-import { v4 } from "uuid";
 
 function BasicCard(props) {
   const {
@@ -24,11 +23,12 @@ function BasicCard(props) {
     window.open(`https://maps.google.com?q=${address}`);
   }
 
+  // col-md-3 col-10 m-3 pt-2
   return (
-    <Card className="hover-shadow col-md-3 col-10 m-3 pt-2">
+    <Card className="hover-shadow">
       {props.childCardInfo.image && (
         <Card.Img
-          className="card-img"
+          className="card-img p-2"
           variant="top"
           src={props.childCardInfo.image}
         />

@@ -8,6 +8,8 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
+  query,
+  orderBy,
 } from "@firebase/firestore";
 import { storage } from "../firebase-config";
 import {
@@ -30,7 +32,10 @@ const Beauty = () => {
   }, []);
 
   const fetchBeautyListings = async () => {
-    const data = await getDocs(beautyCollectionRef);
+    const data = await getDocs(
+      query(beautyCollectionRef, orderBy("dateCreated", "asc"))
+    );
+
     setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
   };
@@ -45,6 +50,7 @@ const Beauty = () => {
         description,
         address,
         image: "",
+        dateCreated: new Date(),
       };
       addDoc(beautyCollectionRef, newBeautyListing);
       fetchBeautyListings();
@@ -64,6 +70,7 @@ const Beauty = () => {
               description,
               address,
               image: url,
+              dateCreated: new Date(),
             };
             addDoc(beautyCollectionRef, newBeautyListing);
             fetchBeautyListings();
