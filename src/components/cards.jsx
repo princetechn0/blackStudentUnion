@@ -6,7 +6,7 @@ import "../stylesheets/cards.css";
 class Cards extends Component {
   render() {
     const { cards, type, onDelete } = this.props;
-    const breakpointColumnsObj = {
+    const breakpointColumnsObjMasonry = {
       default: 3,
       1100: 2,
       700: 1,
@@ -16,7 +16,7 @@ class Cards extends Component {
     return (
       <div className="container">
         <Masonry
-          breakpointCols={breakpointColumnsObj}
+          breakpointCols={breakpointColumnsObjMasonry}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >

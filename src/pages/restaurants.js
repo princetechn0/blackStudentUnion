@@ -21,6 +21,7 @@ import {
 import { v4 } from "uuid";
 import RestaurantForm from "../components/restaurantForm";
 import ModalPopup from "../components/modal";
+import FilterBar from "../components/filterBar";
 
 const Restaurants = () => {
   const [nodes, setNodes] = useState({});
@@ -31,9 +32,9 @@ const Restaurants = () => {
     fetchRestaurants();
   }, []);
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = async (searchTerm = "dateCreated") => {
     const data = await getDocs(
-      query(restaurantCollectionRef, orderBy("dateCreated", "desc"))
+      query(restaurantCollectionRef, orderBy(searchTerm, "desc"))
     );
     setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
@@ -93,6 +94,18 @@ const Restaurants = () => {
     fetchRestaurants();
   };
 
+  const filterCards = (filterTerm) => {
+    const sorted = [...nodes].sort((a, b) => {
+      var keyA = a[filterTerm];
+      var keyB = b[filterTerm];
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+      return 0;
+    });
+
+    setNodes(sorted);
+  };
+
   return (
     <main>
       <div className="pb-4">
@@ -103,11 +116,20 @@ const Restaurants = () => {
       </div>
 
       {!isLoading && (
-        <Cards
-          cards={nodes}
-          onDelete={deleteRestaurant}
-          type={"restaurant"}
-        ></Cards>
+        <div>
+          {nodes && (
+            <FilterBar
+              filterCards={filterCards}
+              filterTopics={nodes.map((doc) => doc.type)}
+            ></FilterBar>
+          )}
+
+          <Cards
+            cards={nodes}
+            onDelete={deleteRestaurant}
+            type={"restaurant"}
+          ></Cards>
+        </div>
       )}
     </main>
   );

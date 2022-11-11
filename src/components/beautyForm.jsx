@@ -6,11 +6,14 @@ function BeautyForm(props) {
   const { register, handleSubmit } = useForm();
   const formRef = useRef(null);
 
+  const { categories, types } = props;
+
   const onClose = () => {
     props.onClick.handleClose();
   };
 
   const onSubmit = (e) => {
+    console.log(e);
     props.onSubmit.onSubmit(e);
     formRef.current.reset();
     onClose();
@@ -30,25 +33,23 @@ function BeautyForm(props) {
         </Form.Group>
         <Form.Label>Category</Form.Label>
         <Form.Group className="mb-3" controlId="formBasic">
-          {["Barbershop", "Hair Salon", "Nail Salon", "Tattoo Parlor"].map(
-            (desc) => (
-              <Form.Check
-                className="mt-1"
-                key={`inline-${desc}`}
-                inline
-                type="checkbox"
-                label={desc}
-                id={desc}
-                value={desc}
-                name="category"
-                {...register("category")}
-              />
-            )
-          )}
+          {categories.map((desc) => (
+            <Form.Check
+              className="mt-1"
+              key={`inline-${desc}`}
+              inline
+              type="checkbox"
+              label={desc}
+              id={desc}
+              value={desc}
+              name="category"
+              {...register("category")}
+            />
+          ))}
         </Form.Group>
         <Form.Label>Type</Form.Label>
         <Form.Group className="mb-3" controlId="formBasic">
-          {["Men", "Women"].map((desc) => (
+          {types.map((desc) => (
             <Form.Check
               key={`inline-${desc}`}
               inline
