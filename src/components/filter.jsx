@@ -3,17 +3,9 @@ import { Badge } from "react-bootstrap";
 import "../stylesheets/filterBar.css";
 
 function Filter(props) {
-  const [isActive, setisActive] = useState(false);
-  const { topic } = props;
-
-  useEffect(() => {
-    if (props.parentValue === true) {
-      setisActive(false);
-    }
-  }, [props.parentValue]);
+  const { topic, isActive } = props;
 
   const onClick = (topic) => {
-    setisActive(!isActive);
     props.filterCards(topic);
   };
 
