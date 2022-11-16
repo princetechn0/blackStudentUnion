@@ -10,6 +10,7 @@ import {
   deleteDoc,
   query,
   orderBy,
+  Timestamp,
 } from "@firebase/firestore";
 import { storage } from "../firebase-config";
 import {
@@ -27,7 +28,7 @@ const Beauty = () => {
   const [nodes, setNodes] = useState({});
   const [filteredData, setFilteredData] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const [isFiltered, setFilteredStatus] = useState(false);
+  const [sorryText, setSorryText] = useState(false);
   const beautyCollectionRef = collection(db, "beauty");
 
   const categories = [
@@ -44,10 +45,23 @@ const Beauty = () => {
 
   const fetchBeautyListings = async () => {
     const data = await getDocs(
-      query(beautyCollectionRef, orderBy("dateCreated", "asc"))
+      query(beautyCollectionRef, orderBy("dateCreated", "desc"))
     );
 
-    setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setNodes(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+
+    setFilteredData(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+    );
+
     setLoading(false);
   };
 
@@ -61,7 +75,7 @@ const Beauty = () => {
         description,
         address,
         image: "",
-        dateCreated: new Date(),
+        dateCreated: Timestamp.now(),
       };
       addDoc(beautyCollectionRef, newBeautyListing);
       fetchBeautyListings();
@@ -80,7 +94,7 @@ const Beauty = () => {
               description,
               address,
               image: url,
-              dateCreated: new Date(),
+              dateCreated: Timestamp.now(),
             };
             addDoc(beautyCollectionRef, newBeautyListing);
             fetchBeautyListings();
@@ -88,6 +102,49 @@ const Beauty = () => {
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
+  };
+
+  const filterRunner = (nodesToFilter, filterTerm) => {
+    let results = [];
+    if (!(filterTerm === "Newest" || filterTerm === "Name")) {
+      for (let i = 0; i < nodesToFilter.length; i++) {
+        const element = nodesToFilter[i];
+        let x;
+
+        if (element.type) {
+          x = element.type.includes(filterTerm);
+        }
+
+        if (!x && element.category) {
+          x = element.category.includes(filterTerm);
+        }
+
+        if (x && !results.includes(element)) {
+          results.push(element);
+        }
+      }
+    } else {
+      results = [...nodesToFilter].sort((a, b) => {
+        let toFilter = filterTerm;
+        switch (filterTerm) {
+          case "Newest":
+            toFilter = "dateCreated";
+            break;
+          case "Name":
+            toFilter = "name";
+            break;
+          default:
+            break;
+        }
+
+        var keyA = a[toFilter.toLowerCase()];
+        var keyB = b[toFilter.toLowerCase()];
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+      });
+    }
+    return results;
   };
 
   const deleteBeautyListing = async (childCardInfo) => {
@@ -107,46 +164,44 @@ const Beauty = () => {
     fetchBeautyListings();
   };
 
-  const filterCards = (filterTerm) => {
-    let sorted = [];
-    let nodesToFilter = filteredData.length > 0 ? filteredData : nodes;
+  const filterCards = (filterTerm, activeFilters) => {
+    let results = [];
+    let undoFlag = false;
+    let nodesToFilter =
+      Object.keys(filteredData).length > 0 ? filteredData : nodes;
 
-    if (!(filterTerm === "Newest" || filterTerm === "Name")) {
-      for (let i = 0; i < nodesToFilter.length; i++) {
-        const element = nodesToFilter[i];
-        let x;
+    if (sorryText) {
+      nodesToFilter = filteredData;
+    }
 
-        if (element.type) {
-          x = element.type.includes(filterTerm);
-        }
-
-        if (!x && element.category) {
-          x = element.category.includes(filterTerm);
-        }
-
-        if (x) {
-          sorted.push(element);
-        }
-      }
+    if (!activeFilters.includes(filterTerm)) {
+      undoFlag = true;
+      nodesToFilter = nodes;
     } else {
-      sorted = [...nodesToFilter].sort((a, b) => {
-        var keyA = a[filterTerm.toLowerCase()];
-        var keyB = b[filterTerm.toLowerCase()];
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
+      undoFlag = false;
+    }
+
+    if (activeFilters.length !== 0 && !undoFlag) {
+      results = filterRunner(nodesToFilter, filterTerm);
+    }
+
+    if (undoFlag) {
+      activeFilters.forEach((y) => {
+        results = filterRunner(nodesToFilter, y);
       });
     }
 
-    setFilteredData(sorted);
-    if (filteredData) {
-      setFilteredStatus(true);
+    setFilteredData(results);
+    results.length > 0 ? setSorryText(false) : setSorryText(true);
+
+    if (activeFilters.length === 0) {
+      clearFilter();
     }
   };
 
   const clearFilter = () => {
-    setFilteredData({});
-    setFilteredStatus(false);
+    setFilteredData(nodes);
+    setSorryText(false);
   };
 
   return (
@@ -160,20 +215,25 @@ const Beauty = () => {
 
       {!isLoading && (
         <div>
-          {nodes && (
-            <FilterBar
-              filterCardsFunc={filterCards}
-              clearFilterFunc={clearFilter}
-              isFiltered={isFiltered}
-              categories={categories}
-              types={types}
-            ></FilterBar>
+          {nodes.length > 0 && (
+            <div>
+              <FilterBar
+                filterCardsFunc={filterCards}
+                clearFilterFunc={clearFilter}
+                categories={categories}
+                types={types}
+              ></FilterBar>
+            </div>
           )}
-          <Cards
-            cards={filteredData.length > 0 ? filteredData : nodes}
-            onDelete={deleteBeautyListing}
-            type={"restaurant"}
-          ></Cards>
+          {Object.keys(filteredData).length > 0 && !sorryText ? (
+            <Cards
+              cards={filteredData}
+              onDelete={deleteBeautyListing}
+              type={"restaurant"}
+            ></Cards>
+          ) : (
+            <h4 className="text-center ">Sorry, no matches! </h4>
+          )}
         </div>
       )}
     </main>

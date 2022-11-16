@@ -1,57 +1,86 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { Badge } from "react-bootstrap";
 import "../stylesheets/filterBar.css";
 import Filter from "./filter";
 
-function FilterBar(props) {
-  const [clearAll, setClearAll] = useState(false);
-  const { categories, types, isFiltered } = props;
-  let additionalTopics = ["Newest", "Name"];
+class FilterBar extends Component {
+  constructor(props) {
+    super(props);
+    const { categories, types } = props;
+    let activeFilters = [];
 
-  let filterTopics = additionalTopics.concat(types.concat(categories));
+    let additionalTopics = ["Newest", "Name"];
+    let filterTopics = additionalTopics.concat(types.concat(categories));
+    filterTopics = filterTopics.map((doc) => ({
+      topic: doc,
+      isActive: false,
+    }));
 
-  const onClick = (topic) => {
-    setClearAll(false);
-    props.filterCardsFunc(topic);
-  };
+    this.state = { filterTopics, activeFilters };
+  }
 
-  const onClearClick = () => {
-    setClearAll(true);
-    props.clearFilterFunc();
-  };
+  onClick(topic) {
+    this.setState(
+      (state) => ({
+        filterTopics: state.filterTopics.map((obj) =>
+          obj.topic === topic
+            ? Object.assign(obj, { isActive: !obj.isActive })
+            : obj
+        ),
+        activeFilters: state.filterTopics
+          .filter((e) => e.isActive === true)
+          .map((e) => e.topic),
+      }),
+      () => {
+        this.props.filterCardsFunc(topic, this.state.activeFilters);
+      }
+    );
+  }
 
-  return (
-    <>
-      <div className="container pt-2 pb-5">
-        <h4 className="d-inline-flex mx-2 py-2 ">Sort by:</h4>
+  onClearClick() {
+    this.setState((prevState) => ({
+      filterTopics: prevState.filterTopics.map((obj) =>
+        Object.assign(obj, { isActive: false })
+      ),
+      activeFilters: [],
+    }));
+    this.props.clearFilterFunc();
+  }
 
-        <div>
-          {filterTopics &&
-            filterTopics.map((topic) => (
-              <Filter
-                key={topic}
-                topic={topic}
-                filterCards={onClick}
-                parentValue={clearAll}
-              ></Filter>
-            ))}
+  render() {
+    return (
+      <>
+        <div className="container pt-2 pb-5">
+          <h4 className="d-inline-flex py-2 mx-2">Sort by:</h4>
 
           <div>
-            {isFiltered && (
-              <Badge
-                onClick={onClearClick}
-                pill
-                bg="danger"
-                className="badge-custom hover-shadow my-2 mx-2"
-              >
-                Clear Filter
-              </Badge>
-            )}
+            {this.state.filterTopics &&
+              this.state.filterTopics.map((filter) => (
+                <Filter
+                  key={filter.topic}
+                  topic={filter.topic}
+                  isActive={filter.isActive}
+                  filterCards={(topic) => this.onClick(topic)}
+                ></Filter>
+              ))}
+
+            <div>
+              {this.state.activeFilters.length !== 0 && (
+                <Badge
+                  onClick={() => this.onClearClick()}
+                  pill
+                  bg="danger"
+                  className="badge-custom hover-shadow my-2 mx-2"
+                >
+                  Clear Filter
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export default FilterBar;
