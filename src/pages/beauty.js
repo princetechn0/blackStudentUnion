@@ -226,11 +226,7 @@ const Beauty = () => {
             </div>
           )}
           {Object.keys(filteredData).length > 0 && !sorryText ? (
-            <Cards
-              cards={filteredData}
-              onDelete={deleteBeautyListing}
-              type={"restaurant"}
-            ></Cards>
+            <Cards cards={filteredData} onDelete={deleteBeautyListing}></Cards>
           ) : (
             <h4 className="text-center ">Sorry, no matches! </h4>
           )}
