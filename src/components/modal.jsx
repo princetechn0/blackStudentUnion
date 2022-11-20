@@ -9,6 +9,7 @@ function ModalPopup(props) {
 
   const onSubmit = (e) => {
     props.onSubmit(e);
+    handleClose();
   };
 
   return (

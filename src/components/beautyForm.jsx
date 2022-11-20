@@ -13,7 +13,6 @@ function BeautyForm(props) {
   };
 
   const onSubmit = (e) => {
-    console.log(e);
     props.onSubmit.onSubmit(e);
     formRef.current.reset();
     onClose();

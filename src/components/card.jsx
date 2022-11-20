@@ -13,7 +13,7 @@ function BasicCard(props) {
     type,
     address,
   } = props.childCardInfo;
-  const { cardType } = props.cardType;
+  // const { cardType } = props.cardType;
 
   function onDelete(id) {
     props.onDelete(id);

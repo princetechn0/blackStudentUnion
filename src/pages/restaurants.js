@@ -24,27 +24,30 @@ import ModalPopup from "../components/modal";
 import FilterBar from "../components/filterBar";
 
 const Restaurants = () => {
-  const [nodes, setNodes] = useState({});
+  const [nodes, setNodes] = useState();
   const [isLoading, setLoading] = useState(true);
   const restaurantCollectionRef = collection(db, "restaurants");
-  const [filteredData, setFilteredData] = useState({});
+  const [filteredData, setFilteredData] = useState();
   const [sorryText, setSorryText] = useState(false);
+  const [filters, setFilters] = useState();
 
   useEffect(() => {
     fetchRestaurants();
   }, []);
 
   const fetchRestaurants = async (searchTerm = "dateCreated") => {
+    setLoading(true);
     const data = await getDocs(
       query(restaurantCollectionRef, orderBy(searchTerm, "desc"))
     );
-    setNodes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    setFilteredData(
-      data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }))
-    );
+
+    let cleanedNodes = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    setNodes(cleanedNodes);
+    setFilteredData(cleanedNodes);
+
+    setFilters([
+      ...new Set(cleanedNodes.map((doc) => doc.type).filter((x) => x !== "")),
+    ]);
 
     setLoading(false);
   };
@@ -193,11 +196,11 @@ const Restaurants = () => {
 
       {!isLoading && (
         <div>
-          {nodes && (
+          {Object.keys(nodes).length > 0 && (
             <FilterBar
               filterCardsFunc={filterCards}
               clearFilterFunc={clearFilter}
-              types={nodes.map((doc) => doc.type).filter((x) => x !== "")}
+              types={filters}
             ></FilterBar>
           )}
 
@@ -208,7 +211,7 @@ const Restaurants = () => {
               type={"restaurant"}
             ></Cards>
           ) : (
-            <h4 className="text-center ">Sorry, no matches! </h4>
+            <h4 className="text-center pt-5 ">Sorry, no restaurants! </h4>
           )}
         </div>
       )}

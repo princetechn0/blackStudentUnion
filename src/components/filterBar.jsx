@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Badge } from "react-bootstrap";
 import "../stylesheets/filterBar.css";
 import Filter from "./filter";
+import { v4 } from "uuid";
 
 class FilterBar extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class FilterBar extends Component {
             {this.state.filterTopics &&
               this.state.filterTopics.map((filter) => (
                 <Filter
-                  key={filter.topic}
+                  key={filter.topic + v4()}
                   topic={filter.topic}
                   isActive={filter.isActive}
                   filterCards={(topic) => this.onClick(topic)}
