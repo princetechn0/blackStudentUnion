@@ -5,7 +5,7 @@ import "../stylesheets/cards.css";
 
 class Cards extends Component {
   render() {
-    const { cards, type, onDelete } = this.props;
+    const { cards, type, onDelete, onVote } = this.props;
     const breakpointColumnsObjMasonry = {
       default: 3,
       1100: 2,
@@ -27,21 +27,10 @@ class Cards extends Component {
                 childCardInfo={card}
                 cardType={type}
                 onDelete={onDelete}
+                onVote={onVote}
               ></BasicCard>
             ))}
         </Masonry>
-
-        {/* <div className="row text-center justify-content-center">
-          {cards &&
-            cards.map((card) => (
-              <BasicCard
-                key={card.id}
-                childCardInfo={card}
-                cardType={type}
-                onDelete={onDelete}
-              ></BasicCard>
-            ))}
-        </div> */}
       </div>
     );
   }

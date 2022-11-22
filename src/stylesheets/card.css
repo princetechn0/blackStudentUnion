@@ -14,15 +14,24 @@
   box-shadow: 0 0 30px rgba(33, 33, 33, 0.5);
 }
 
+.voteBlock {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  display: inline-flex;
+}
+
+.voteHeart {
+  margin-left: 3px;
+}
+
+.voteHeart:hover {
+  color: red;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
   [class*="card-img"] {
     height: 50vw;
   }
-}
-
-.directions-button {
-  position: absolute;
-  right: 20px;
-  bottom: 4px;
-  z-index: 9999;
 }

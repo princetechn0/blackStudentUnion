@@ -7,6 +7,7 @@ import {
   collection,
   getDocs,
   addDoc,
+  updateDoc,
   deleteDoc,
   query,
   orderBy,
@@ -75,6 +76,7 @@ const Beauty = () => {
         description,
         address,
         image: "",
+        votes: 0,
         dateCreated: Timestamp.now(),
       };
       addDoc(beautyCollectionRef, newBeautyListing);
@@ -94,6 +96,7 @@ const Beauty = () => {
               description,
               address,
               image: url,
+              votes: 0,
               dateCreated: Timestamp.now(),
             };
             addDoc(beautyCollectionRef, newBeautyListing);
@@ -106,7 +109,13 @@ const Beauty = () => {
 
   const filterRunner = (nodesToFilter, filterTerm) => {
     let results = [];
-    if (!(filterTerm === "Newest" || filterTerm === "Name")) {
+    if (
+      !(
+        filterTerm === "Newest" ||
+        filterTerm === "Name" ||
+        filterTerm === "Most Popular"
+      )
+    ) {
       for (let i = 0; i < nodesToFilter.length; i++) {
         const element = nodesToFilter[i];
         let x;
@@ -125,13 +134,20 @@ const Beauty = () => {
       }
     } else {
       results = [...nodesToFilter].sort((a, b) => {
+        let ascending = true;
         let toFilter = filterTerm;
         switch (filterTerm) {
           case "Newest":
             toFilter = "dateCreated";
+            ascending = true;
             break;
           case "Name":
             toFilter = "name";
+            ascending = true;
+            break;
+          case "Most Popular":
+            toFilter = "votes";
+            ascending = false;
             break;
           default:
             break;
@@ -139,8 +155,18 @@ const Beauty = () => {
 
         var keyA = a[toFilter.toLowerCase()];
         var keyB = b[toFilter.toLowerCase()];
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
+        if (keyA < keyB && ascending) {
+          return -1;
+        }
+        if (keyA < keyB && !ascending) {
+          return 1;
+        }
+        if (keyA > keyB && ascending) {
+          return 1;
+        }
+        if (keyA > keyB && !ascending) {
+          return -1;
+        }
         return 0;
       });
     }
@@ -161,6 +187,13 @@ const Beauty = () => {
         .catch((error) => {});
     }
 
+    fetchBeautyListings();
+  };
+
+  const voteBeautyListing = async (childCardInfo) => {
+    const { id } = childCardInfo;
+    const docRef = doc(db, "beauty", id);
+    await updateDoc(docRef, { votes: (childCardInfo.votes += 1) });
     fetchBeautyListings();
   };
 
@@ -226,7 +259,11 @@ const Beauty = () => {
             </div>
           )}
           {Object.keys(filteredData).length > 0 && !sorryText ? (
-            <Cards cards={filteredData} onDelete={deleteBeautyListing}></Cards>
+            <Cards
+              cards={filteredData}
+              onVote={voteBeautyListing}
+              onDelete={deleteBeautyListing}
+            ></Cards>
           ) : (
             <h4 className="text-center ">Sorry, no matches! </h4>
           )}

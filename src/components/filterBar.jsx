@@ -10,12 +10,14 @@ class FilterBar extends Component {
     const { categories, types } = props;
     let activeFilters = [];
 
-    let additionalTopics = ["Newest", "Name"];
+    let additionalTopics = ["Newest", "Name", "Most Popular"];
     let filterTopics = additionalTopics.concat(types.concat(categories));
     filterTopics = filterTopics.map((doc) => ({
       topic: doc,
       isActive: false,
     }));
+
+    filterTopics.find((e) => e.topic === "Newest").isActive = true;
 
     this.state = { filterTopics, activeFilters };
   }
