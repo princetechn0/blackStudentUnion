@@ -30,6 +30,10 @@
   font-weight: 700;
 }
 
+.voteBlock p {
+  margin-top: 1px;
+}
+
 .voteHeart {
   margin-left: 3px;
 }

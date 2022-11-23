@@ -9,6 +9,7 @@ import {
   addDoc,
   deleteDoc,
   query,
+  updateDoc,
   orderBy,
 } from "@firebase/firestore";
 import { storage } from "../firebase-config";
@@ -36,7 +37,7 @@ const Restaurants = () => {
   }, []);
 
   const fetchRestaurants = async (searchTerm = "dateCreated") => {
-    setLoading(true);
+    // setLoading(true);
     const data = await getDocs(
       query(restaurantCollectionRef, orderBy(searchTerm, "desc"))
     );
@@ -61,6 +62,7 @@ const Restaurants = () => {
         description,
         address,
         image: "",
+        votes: 0,
         dateCreated: new Date(),
       };
       addDoc(restaurantCollectionRef, newRestaurant);
@@ -79,6 +81,7 @@ const Restaurants = () => {
               description,
               address,
               image: url,
+              votes: 0,
               dateCreated: new Date(),
             };
             addDoc(restaurantCollectionRef, newRestaurant);
@@ -108,7 +111,13 @@ const Restaurants = () => {
 
   const filterRunner = (nodesToFilter, filterTerm) => {
     let results = [];
-    if (!(filterTerm === "Newest" || filterTerm === "Name")) {
+    if (
+      !(
+        filterTerm === "Newest" ||
+        filterTerm === "Name" ||
+        filterTerm === "Most Popular"
+      )
+    ) {
       for (let i = 0; i < nodesToFilter.length; i++) {
         const element = nodesToFilter[i];
         let x;
@@ -123,13 +132,20 @@ const Restaurants = () => {
       }
     } else {
       results = [...nodesToFilter].sort((a, b) => {
+        let ascending = true;
         let toFilter = filterTerm;
         switch (filterTerm) {
           case "Newest":
             toFilter = "dateCreated";
+            ascending = true;
             break;
           case "Name":
             toFilter = "name";
+            ascending = true;
+            break;
+          case "Most Popular":
+            toFilter = "votes";
+            ascending = false;
             break;
           default:
             break;
@@ -137,12 +153,29 @@ const Restaurants = () => {
 
         var keyA = a[toFilter.toLowerCase()];
         var keyB = b[toFilter.toLowerCase()];
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
+        if (keyA < keyB && ascending) {
+          return -1;
+        }
+        if (keyA < keyB && !ascending) {
+          return 1;
+        }
+        if (keyA > keyB && ascending) {
+          return 1;
+        }
+        if (keyA > keyB && !ascending) {
+          return -1;
+        }
         return 0;
       });
     }
     return results;
+  };
+
+  const voteBeautyListing = async (childCardInfo) => {
+    const { id } = childCardInfo;
+    const docRef = doc(db, "restaurants", id);
+    await updateDoc(docRef, { votes: (childCardInfo.votes += 1) });
+    fetchRestaurants();
   };
 
   const filterCards = (filterTerm, activeFilters) => {
@@ -207,6 +240,7 @@ const Restaurants = () => {
           {Object.keys(filteredData).length > 0 && !sorryText ? (
             <Cards
               cards={filteredData}
+              onVote={voteBeautyListing}
               onDelete={deleteRestaurant}
               type={"restaurant"}
             ></Cards>
