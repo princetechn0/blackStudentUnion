@@ -34,7 +34,7 @@ function BasicCard(props) {
       <Card className="hover-shadow">
         {props.childCardInfo.image && (
           <Card.Img
-            className="card-img p-2"
+            className="card-img p-1"
             variant="top"
             src={props.childCardInfo.image}
           />

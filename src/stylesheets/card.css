@@ -1,8 +1,16 @@
 .BasicCard .card-img {
   width: 100%;
-  height: 30vw;
+  height: 20vw;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(33, 33, 33, 0.2);
+  border-radius: 2%;
+}
+
+@media only screen and (max-width: 767px) {
+  [class*="card-img"] {
+    height: 50vw !important;
+    object-fit: cover;
+  }
 }
 
 .hover-shadow {
@@ -29,10 +37,4 @@
 .voteHeart:hover {
   color: red;
   cursor: pointer;
-}
-
-@media only screen and (max-width: 768px) {
-  [class*="card-img"] {
-    height: 50vw;
-  }
 }
