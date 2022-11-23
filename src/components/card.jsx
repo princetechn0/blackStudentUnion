@@ -107,7 +107,7 @@ function BasicCard(props) {
         )}
         {/* voting heart and counter */}
         <div className="voteBlock">
-          <p> {votes}</p>
+          <p>{votes}</p>
           <div
             className="voteHeart"
             onClick={() => onVote(props.childCardInfo)}
