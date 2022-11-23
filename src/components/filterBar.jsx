@@ -10,13 +10,12 @@ class FilterBar extends Component {
     const { categories, types } = props;
     let activeFilters = [];
 
-    let additionalTopics = ["Newest", "Name", "Most Popular"];
-    let filterTopics = additionalTopics.concat(types.concat(categories));
+    let baseTopics = ["Newest", "Name", "Most Popular"];
+    let filterTopics = baseTopics.concat(types.concat(categories));
     filterTopics = filterTopics.map((doc) => ({
       topic: doc,
       isActive: false,
     }));
-
     filterTopics.find((e) => e.topic === "Newest").isActive = true;
 
     this.state = { filterTopics, activeFilters };
@@ -55,7 +54,6 @@ class FilterBar extends Component {
       <>
         <div className="container pt-2 pb-5">
           <h4 className="d-inline-flex py-2 mx-2">Sort by:</h4>
-
           <div>
             {this.state.filterTopics &&
               this.state.filterTopics.map((filter) => (
@@ -66,7 +64,6 @@ class FilterBar extends Component {
                   filterCards={(topic) => this.onClick(topic)}
                 ></Filter>
               ))}
-
             <div>
               {this.state.activeFilters.length !== 0 && (
                 <Badge
