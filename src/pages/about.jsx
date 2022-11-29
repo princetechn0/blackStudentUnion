@@ -13,7 +13,17 @@ class About extends Component {
   };
 
   render() {
-    return <div></div>;
+    return (
+      <div className="container pt-5 w-50 text-center text-white">
+        <h4>
+          {" "}
+          For the Culture is an online “Black book” that encapsulates all things
+          Black Culture as it relates to cuisine, music, church, hair,
+          organizations, social spaces, etc., which are seen as fundamental
+          iconography in the lexicon of Blackness.
+        </h4>
+      </div>
+    );
   }
 }
 

@@ -1,0 +1,15 @@
+.main-body {
+  color: white;
+  width: 80%;
+}
+
+.subtitle-text {
+  font-size: 1.6vw;
+  font-weight: 500;
+  /* margin: -10px; */
+}
+
+.title-text {
+  font-size: 5vw;
+  font-weight: bolder;
+}

@@ -1,0 +1,9 @@
+.custom-navbar {
+  background-color: rgb(242, 168, 105);
+  padding: 2rem;
+}
+
+.navbar-brand {
+  font-weight: bolder;
+  font-size: x-large;
+}
