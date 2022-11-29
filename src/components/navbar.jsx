@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "../stylesheets/navbar.css";
 
 class Navbar2 extends Component {
@@ -10,13 +10,22 @@ class Navbar2 extends Component {
 
   render() {
     return (
-      <Navbar className="custom-navbar" variant="dark">
+      <Navbar
+        className="custom-navbar"
+        collapseOnSelect
+        expand="lg"
+        variant="dark"
+      >
         <Container>
-          <Navbar.Brand>For the Culture</Navbar.Brand>
-          <div className="float-right">
-            <Navbar.Brand href="/">Home</Navbar.Brand>
-            <Navbar.Brand href="/about">About</Navbar.Brand>
-          </div>
+          <Navbar.Brand href="/">For the Culture</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto"></Nav>
+            <Nav>
+              <Navbar.Brand href="/">Home</Navbar.Brand>
+              <Navbar.Brand href="/about">About</Navbar.Brand>
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     );

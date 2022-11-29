@@ -4,12 +4,13 @@
 }
 
 .subtitle-text {
-  font-size: 1.6vw;
+  /* font-size: 1.6vw; */
+  font-size: 20px;
   font-weight: 500;
-  /* margin: -10px; */
 }
 
 .title-text {
-  font-size: 5vw;
+  /* font-size: 5vw; */
+  font-size: 80px;
   font-weight: bolder;
 }

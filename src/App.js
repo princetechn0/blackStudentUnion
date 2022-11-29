@@ -53,7 +53,7 @@ class App extends Component {
     return (
       <main className="container">
         <div className="main-body pt-4 text-center mx-auto">
-          <h3 className="subtitle-text"> WELCOME TO THE HOME OF ALL THINGS</h3>
+          <p className="subtitle-text"> WELCOME TO THE HOME OF ALL THINGS</p>
           <h1 className="title-text"> BLACK CULTURE</h1>
           <span className="desc-text">
             {" "}
