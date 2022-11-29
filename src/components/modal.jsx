@@ -16,7 +16,7 @@ function ModalPopup(props) {
     <>
       <Button
         className="d-flex mx-auto mt-3"
-        variant="outline-dark"
+        variant="outline-light"
         size="lg"
         onClick={handleShow}
       >
