@@ -265,7 +265,7 @@ const Beauty = () => {
               onDelete={deleteBeautyListing}
             ></Cards>
           ) : (
-            <h4 className="text-center ">Sorry, no matches! </h4>
+            <h4 className="text-center text-white ">Sorry, no results! </h4>
           )}
         </div>
       )}

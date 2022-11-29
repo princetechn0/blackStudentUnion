@@ -221,7 +221,7 @@ const Restaurants = () => {
   return (
     <main>
       <div className="pb-4">
-        <h1 className="header">Restaurants</h1>
+        <h1 className="header">Cuisine</h1>
         <ModalPopup onSubmit={postRestaurant}>
           <RestaurantForm />
         </ModalPopup>
@@ -245,7 +245,7 @@ const Restaurants = () => {
               type={"restaurant"}
             ></Cards>
           ) : (
-            <h4 className="text-center pt-5 ">Sorry, no restaurants! </h4>
+            <h4 className="text-center pt-5 text-white">Sorry, no results! </h4>
           )}
         </div>
       )}
