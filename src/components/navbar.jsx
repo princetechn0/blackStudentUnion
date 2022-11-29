@@ -13,6 +13,7 @@ class Navbar2 extends Component {
         <Container>
           <Navbar.Brand href="/">Home</Navbar.Brand>
           <div className="float-right">
+            <Navbar.Brand href="/login">Login</Navbar.Brand>
             <Navbar.Brand href="/about">About</Navbar.Brand>
           </div>
         </Container>
