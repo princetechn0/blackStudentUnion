@@ -55,14 +55,11 @@ class App extends Component {
         <div className="main-body pt-4 text-center mx-auto">
           <p className="subtitle-text">WELCOME TO THE HOME OF ALL THINGS</p>
           <h1 className="title-text"> BLACK CULTURE</h1>
-          <p className="desc-text">
-            {" "}
+          <p className="desc-text w-75 py-3">
             For the Culture is an online “Black book” that encapsulates all
-            things Black Culture. Learn{" "}
-            <a style={{ color: "rgb(242, 168, 105)" }} href="/about">
-              more
-            </a>
-            .
+            things Black Culture as it relates to cuisine, music, church, hair,
+            organizations, social spaces, etc., which are seen as fundamental
+            iconography in the lexicon of Blackness.
           </p>
         </div>
 
