@@ -4,7 +4,7 @@
 
 .subtitle-text {
   /* font-size: 1.6vw; */
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
 }
 
@@ -12,4 +12,9 @@
   /* font-size: 5vw; */
   font-size: 80px;
   font-weight: bolder;
+}
+
+.desc-text {
+  font-size: 17px;
+  font-weight: 100;
 }

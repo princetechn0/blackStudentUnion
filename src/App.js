@@ -55,16 +55,15 @@ class App extends Component {
         <div className="main-body pt-4 text-center mx-auto">
           <p className="subtitle-text">WELCOME TO THE HOME OF ALL THINGS</p>
           <h1 className="title-text"> BLACK CULTURE</h1>
-          <span className="desc-text">
+          <p className="desc-text">
             {" "}
             For the Culture is an online “Black book” that encapsulates all
-            things Black Culture.
-            <br /> Learn{" "}
+            things Black Culture. Learn{" "}
             <a style={{ color: "rgb(242, 168, 105)" }} href="/about">
               more
             </a>
             .
-          </span>
+          </p>
         </div>
 
         <Sections sectionData={this.state.sections}> </Sections>
