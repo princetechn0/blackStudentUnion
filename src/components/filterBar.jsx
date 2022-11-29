@@ -53,7 +53,7 @@ class FilterBar extends Component {
     return (
       <>
         <div className="container pt-2 pb-5">
-          <h4 className="d-inline-flex py-2 mx-2">Sort by:</h4>
+          <h4 className="d-inline-flex py-2 mx-2 text-white">Sort by:</h4>
           <div>
             {this.state.filterTopics &&
               this.state.filterTopics.map((filter) => (
