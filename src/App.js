@@ -24,7 +24,7 @@ class App extends Component {
         header: "Arts & Entertainment",
         imageURL: "/arts.jpg",
         lastUpdated: "2 minutes ago",
-        route: "/groups",
+        route: "/entertainment",
       },
       {
         id: 3,
@@ -38,20 +38,20 @@ class App extends Component {
         header: "Parents Corner",
         imageURL: "/hangout.jpg",
         lastUpdated: "2 minutes ago",
-        route: "/groups",
+        route: "/parents",
       },
       {
         id: 5,
         header: "Health and Wellness",
         imageURL: "/health.jpg",
         lastUpdated: "2 minutes ago",
-        route: "/groups",
+        route: "/health",
       },
     ],
   };
   render() {
     return (
-      <main className="container">
+      <main className="container pb-5">
         <div className="main-body pt-4 text-center mx-auto">
           <p className="subtitle-text">WELCOME TO THE HOME OF ALL THINGS</p>
           <h1 className="title-text"> BLACK CULTURE</h1>

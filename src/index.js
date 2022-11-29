@@ -11,6 +11,9 @@ import About from "./pages/about";
 import Navbar2 from "./components/navbar";
 import Submission from "./pages/submission";
 import Groups from "./pages/groups";
+import Parents from "./pages/parents";
+import Entertainment from "./pages/entertainment";
+import Health from "./pages/health";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,6 +24,9 @@ root.render(
       <Route path="/beauty" element={<Beauty />} />
       <Route path="/restaurants" element={<Restaurants />} />
       <Route path="/groups" element={<Groups />} />
+      <Route path="/parents" element={<Parents />} />
+      <Route path="/entertainment" element={<Entertainment />} />
+      <Route path="/health" element={<Health />} />
       <Route path="/submissions" element={<Submission />} />
       <Route path="/about" element={<About />} />
     </Routes>
