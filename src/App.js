@@ -38,6 +38,21 @@ class App extends Component {
   render() {
     return (
       <main className="container">
+        <div className="main-body pt-4 text-center mx-auto">
+          <h3 className="subtitle-text"> WELCOME TO THE HOME OF ALL THINGS</h3>
+          <h1 className="title-text"> BLACK CULTURE</h1>
+          <span className="desc-text">
+            {" "}
+            For the Culture is an online “Black book” that encapsulates all
+            things Black Culture.
+            <br /> Learn{" "}
+            <a style={{ color: "rgb(242, 168, 105)" }} href="/about">
+              more
+            </a>
+            .
+          </span>
+        </div>
+
         <Sections sectionData={this.state.sections}> </Sections>
       </main>
     );
