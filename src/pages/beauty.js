@@ -240,7 +240,7 @@ const Beauty = () => {
   return (
     <main>
       <div className="pb-4">
-        <h1 className="headerBarber">Beauty</h1>
+        <h1 className="header">Beauty</h1>
         <ModalPopup onSubmit={postBeautyListing}>
           <BeautyForm categories={categories} types={types} />
         </ModalPopup>
