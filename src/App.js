@@ -7,7 +7,7 @@ class App extends Component {
     sections: [
       {
         id: 0,
-        header: "Local food",
+        header: "Cuisine",
         imageURL: "/african-food-recipes.png",
         lastUpdated: "2 minutes ago",
         route: "/restaurants",
@@ -21,15 +21,29 @@ class App extends Component {
       },
       {
         id: 2,
-        header: "Events",
-        imageURL: "/hangout.jpg",
+        header: "Arts & Entertainment",
+        imageURL: "/arts.jpg",
         lastUpdated: "2 minutes ago",
         route: "/groups",
       },
       {
         id: 3,
-        header: "On Campus Resources",
+        header: "Black Organizations",
+        imageURL: "/organizations.jpg",
+        lastUpdated: "2 minutes ago",
+        route: "/groups",
+      },
+      {
+        id: 4,
+        header: "Parents Corner",
         imageURL: "/hangout.jpg",
+        lastUpdated: "2 minutes ago",
+        route: "/groups",
+      },
+      {
+        id: 5,
+        header: "Health and Wellness",
+        imageURL: "/health.jpg",
         lastUpdated: "2 minutes ago",
         route: "/groups",
       },

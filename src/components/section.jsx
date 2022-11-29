@@ -11,7 +11,7 @@ class SectionHeader extends Component {
         <Link to={childSection.route}>
           <Card className="hover-shadow text-white my-3">
             <Card.Img
-              className="imageBlur"
+              className="sectionImage"
               src={childSection.imageURL}
               alt="Card image"
             />
