@@ -1,3 +1,8 @@
-span {
+.about-text span {
   font-size: 30px;
+}
+
+.about-text {
+  width: 80%;
+  margin: auto;
 }

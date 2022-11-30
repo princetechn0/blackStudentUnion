@@ -14,14 +14,16 @@ class About extends Component {
 
   render() {
     return (
-      <div className="container pt-5 w-50 text-center text-white">
-        <span>
-          {" "}
-          For the Culture is an online “Black book” that encapsulates all things
-          Black Culture as it relates to cuisine, music, church, hair,
-          organizations, social spaces, etc., which are seen as fundamental
-          iconography in the lexicon of Blackness.
-        </span>
+      <div className="container">
+        <div className="about-text py-5 text-center text-white">
+          <span>
+            {" "}
+            For the Culture is an online “Black book” that encapsulates all
+            things Black Culture as it relates to cuisine, music, church, hair,
+            organizations, social spaces, etc., which are seen as fundamental
+            iconography in the lexicon of Blackness.
+          </span>
+        </div>
       </div>
     );
   }
