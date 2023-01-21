@@ -5,16 +5,19 @@
 
 .about-text h2 {
   font-size: 4rem;
-  padding-top: 8rem;
+  margin-top: 8rem;
   font-weight: bolder;
 }
 
 .about-text h3 {
   font-size: 2rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
   text-shadow: 15px 4px 16px yellow, -25px 11px 18px blue;
 }
 
 .about-text footer {
-  margin-top: 10rem;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
 }

@@ -9,7 +9,6 @@ class About extends Component {
         <div className="about-text">
           <h2> Made by UCI students, </h2>
           <h3> for UCI students. </h3>
-
           <footer>
             <Button
               variant="light"
