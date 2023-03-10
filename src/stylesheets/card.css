@@ -18,8 +18,8 @@
 }
 
 .hover-shadow:hover {
-  transition: box-shadow 0.5s;
-  box-shadow: 0 0 30px rgba(33, 33, 33, 0.5);
+  transition: box-shadow 0.3s;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .voteBlock {

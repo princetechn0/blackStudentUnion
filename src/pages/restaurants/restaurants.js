@@ -1,111 +1,48 @@
 import React, { useEffect, useState } from "react";
-import "../stylesheets/restaurants.css";
-import Cards from "../components/cards";
-import { db, storage } from "../firebase-config";
+import "../../stylesheets/restaurants.css";
+import Cards from "../../components/cards";
 import {
-  doc,
-  collection,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  query,
-  updateDoc,
-  orderBy,
-} from "@firebase/firestore";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import { v4 } from "uuid";
-import RestaurantForm from "../components/restaurantForm";
-import ModalPopup from "../components/modal";
-import FilterBar from "../components/filterBar";
+  fetchRestaurants,
+  postRestaurant,
+  deleteRestaurant,
+  updateRestaurant,
+} from "./controller";
+import RestaurantForm from "../../components/restaurantForm";
+import ModalPopup from "../../components/modal";
+import FilterBar from "../../components/filterBar";
 
 function Restaurants() {
-  const [nodes, setNodes] = useState();
-  const [isLoading, setLoading] = useState(true);
-  const restaurantCollectionRef = collection(db, "restaurants");
+  const [nodes, setNodes] = useState([]);
   const [filteredData, setFilteredData] = useState();
   const [sorryText, setSorryText] = useState(false);
   const [filters, setFilters] = useState();
 
   useEffect(() => {
-    fetchRestaurants();
+    getRestaurants();
   }, []);
 
-  const fetchRestaurants = async (searchTerm = "dateCreated") => {
-    // setLoading(true);
-    const data = await getDocs(
-      query(restaurantCollectionRef, orderBy(searchTerm, "desc"))
-    );
-
-    let cleanedNodes = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    setNodes(cleanedNodes);
-    setFilteredData(cleanedNodes);
-
+  const getRestaurants = async () => {
+    let data = await fetchRestaurants();
+    setNodes([...data, ...nodes]);
+    setFilteredData(data);
     setFilters([
-      ...new Set(cleanedNodes.map((doc) => doc.type).filter((x) => x !== "")),
+      ...new Set(data.map((doc) => doc.type).filter((x) => x !== "")),
     ]);
-
-    setLoading(false);
   };
 
-  const postRestaurant = async (inputData) => {
-    const { name, type, description, address, image } = inputData;
-    if (Object.keys(image).length === 0) {
-      const newRestaurant = {
-        name,
-        type,
-        description,
-        address,
-        image: "",
-        votes: 0,
-        dateCreated: new Date(),
-      };
-      addDoc(restaurantCollectionRef, newRestaurant);
-      fetchRestaurants();
-      return;
-    }
-    var imgSerial = `restaurant/${image[0].name}` + v4();
-    let imgRef = ref(storage, imgSerial);
-    await uploadBytes(imgRef, image[0])
-      .then(() => {
-        getDownloadURL(imgRef)
-          .then((url) => {
-            const newRestaurant = {
-              name,
-              type,
-              description,
-              address,
-              image: url,
-              votes: 0,
-              dateCreated: new Date(),
-            };
-            addDoc(restaurantCollectionRef, newRestaurant);
-            fetchRestaurants();
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
+  const createRestaurant = async (inp) => {
+    await postRestaurant(inp);
+    getRestaurants();
   };
 
-  const deleteRestaurant = async (childCardInfo) => {
-    const { id, image } = childCardInfo;
-    const docRef = doc(db, "restaurants", id);
-    // Deletes Entry in Firestore DB
-    await deleteDoc(docRef);
+  const removeRestaurant = (childCardInfo) => {
+    deleteRestaurant(childCardInfo);
+    getRestaurants();
+  };
 
-    // Deletes file in Cloud Storage
-    if (image !== "") {
-      let imgRef = ref(storage, image);
-      deleteObject(imgRef)
-        .then(() => {})
-        .catch((error) => {});
-    }
-
-    fetchRestaurants();
+  const voteRestaurant = async (childCardInfo) => {
+    updateRestaurant(childCardInfo);
+    getRestaurants();
   };
 
   const filterRunner = (nodesToFilter, filterTerm) => {
@@ -170,13 +107,6 @@ function Restaurants() {
     return results;
   };
 
-  const voteBeautyListing = async (childCardInfo) => {
-    const { id } = childCardInfo;
-    const docRef = doc(db, "restaurants", id);
-    await updateDoc(docRef, { votes: (childCardInfo.votes += 1) });
-    fetchRestaurants();
-  };
-
   const filterCards = (filterTerm, activeFilters) => {
     let results = [];
     let undoFlag = false;
@@ -221,12 +151,12 @@ function Restaurants() {
     <main>
       <div className="pb-4">
         <h1 className="header">Cuisine</h1>
-        <ModalPopup onSubmit={postRestaurant}>
+        <ModalPopup onSubmit={createRestaurant}>
           <RestaurantForm />
         </ModalPopup>
       </div>
 
-      {!isLoading && (
+      {nodes.length && (
         <div>
           {Object.keys(nodes).length > 0 && (
             <FilterBar
@@ -239,8 +169,8 @@ function Restaurants() {
           {Object.keys(filteredData).length > 0 && !sorryText ? (
             <Cards
               cards={filteredData}
-              onVote={voteBeautyListing}
-              onDelete={deleteRestaurant}
+              onVote={voteRestaurant}
+              onDelete={removeRestaurant}
               type={"restaurant"}
             ></Cards>
           ) : (
