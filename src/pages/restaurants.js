@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../stylesheets/restaurants.css";
 import Cards from "../components/cards";
-import { db } from "../firebase-config";
+import { db, storage } from "../firebase-config";
 import {
   doc,
   collection,
@@ -12,7 +12,6 @@ import {
   updateDoc,
   orderBy,
 } from "@firebase/firestore";
-import { storage } from "../firebase-config";
 import {
   ref,
   uploadBytes,
@@ -24,7 +23,7 @@ import RestaurantForm from "../components/restaurantForm";
 import ModalPopup from "../components/modal";
 import FilterBar from "../components/filterBar";
 
-const Restaurants = () => {
+function Restaurants() {
   const [nodes, setNodes] = useState();
   const [isLoading, setLoading] = useState(true);
   const restaurantCollectionRef = collection(db, "restaurants");
@@ -251,6 +250,6 @@ const Restaurants = () => {
       )}
     </main>
   );
-};
+}
 
 export default Restaurants;

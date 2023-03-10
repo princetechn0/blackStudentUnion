@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../stylesheets/beauty.css";
 import Cards from "../components/cards";
-import { db } from "../firebase-config";
+import { db, storage } from "../firebase-config";
 import {
   doc,
   collection,
@@ -13,7 +13,6 @@ import {
   orderBy,
   Timestamp,
 } from "@firebase/firestore";
-import { storage } from "../firebase-config";
 import {
   ref,
   uploadBytes,
