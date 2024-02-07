@@ -5,7 +5,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Beauty from "./pages/beauty";
-import Restaurants from "./pages/restaurants";
+import Restaurants from "./pages/restaurants/restaurants";
 import reportWebVitals from "./reportWebVitals";
 import About from "./pages/about";
 import Navbar2 from "./components/navbar";

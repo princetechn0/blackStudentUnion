@@ -3,13 +3,16 @@
 }
 
 .subtitle-text {
-  font-size: 25px;
+  /* font-size: 25px; */
+  font-size: calc(1rem + 1vw);
   font-weight: 500;
 }
 
 .title-text {
-  font-size: 80px;
+  /* font-size: 80px; */
+  font-size: calc(2rem + 5vw);
   font-weight: bolder;
+  text-decoration: underline black;
 }
 
 .desc-text {

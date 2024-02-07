@@ -6,46 +6,24 @@ import { IconContext } from "react-icons";
 import { FaDirections } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 
-function BasicCard(props) {
-  const {
-    name,
-    description,
-    category = "",
-    type,
-    address,
-    votes,
-  } = props.childCardInfo;
-  // const { cardType } = props.cardType;
+function displayAddress(address) {
+  window.open(`https://maps.google.com?q=${address}`);
+}
 
-  function onDelete(id) {
-    props.onDelete(id);
-  }
-
-  function displayAddress(address) {
-    window.open(`https://maps.google.com?q=${address}`);
-  }
-
-  function onVote(id) {
-    props.onVote(id);
-  }
-
+function BasicCard({ childCardInfo, description, onDelete, onVote }) {
+  const { image, name, address, votes, category, type } = childCardInfo;
   return (
     <div className="BasicCard text-center">
       <Card className="hover-shadow">
-        {props.childCardInfo.image && (
-          <Card.Img
-            className="card-img p-1"
-            variant="top"
-            src={props.childCardInfo.image}
-          />
+        {image && (
+          <Card.Img className="card-img p-1" variant="top" src={image} />
         )}
+
         <Card.Body>
           <div className="d-flex justify-content-center align-middle">
-            {/* header */}
             <h3>{name}</h3>
           </div>
           <Card.Text>{description}</Card.Text>
-          {/* If Address exists */}
           {address && (
             <div className="pt-2">
               <Card.Text>{address} </Card.Text>
@@ -61,16 +39,7 @@ function BasicCard(props) {
               </Button>
             </div>
           )}
-
-          {/* <Button
-          className="mx-4"
-          variant="danger"
-          onClick={() => onDelete(props.childCardInfo)}
-        >
-          Delete
-        </Button> */}
         </Card.Body>
-
         {/* type and category pills */}
         {(type || category) && (
           <Card.Footer>
@@ -105,13 +74,11 @@ function BasicCard(props) {
             </div>
           </Card.Footer>
         )}
+
         {/* voting heart and counter */}
         <div className="voteBlock">
           <p>{votes}</p>
-          <div
-            className="voteHeart"
-            onClick={() => onVote(props.childCardInfo)}
-          >
+          <div className="voteHeart" onClick={() => onVote(childCardInfo)}>
             <IconContext.Provider value={{ size: "1em" }}>
               <AiOutlineHeart />
             </IconContext.Provider>
